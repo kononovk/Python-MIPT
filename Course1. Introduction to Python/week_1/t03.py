@@ -1,11 +1,10 @@
 from math import sqrt
-
 import sys
+
 a = int(sys.argv[1])
 b = int(sys.argv[2])
 c = int(sys.argv[3])
 
-d = b**2 - 4*a*c
 if a == 0 and b == 0 and c == 0:
     print("all x are roots")
 elif a == 0 and b == 0:
@@ -13,7 +12,7 @@ elif a == 0 and b == 0:
 elif a == 0:
     print(int(-c / b))
 else:
-    d = b**2 - 4*a*c
+    d = b * b - 4 * a * c
     if d < 0:
         print("no roots")
     elif d == 0:
