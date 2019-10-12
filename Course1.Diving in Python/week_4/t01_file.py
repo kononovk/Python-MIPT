@@ -11,6 +11,14 @@ class File:
         self.path = path
         self.f = open(path, 'r+')
 
+    def write(self, line):
+        with open(self.path, 'a') as f:
+            return f.write(line)
+
+    def read(self):
+        with open(self.path, 'r') as f:
+            return f.read()
+
     def __str__(self):
         return self.path
 
@@ -27,8 +35,6 @@ class File:
 
     def __add__(self, other):
         tmp_path = os.path.join(tempfile.gettempdir(), 'new_file.txt')
-        #if not os.path.exists(tmp_path):
-        #    return False
         with open(tmp_path, 'w') as f:
             for line in self.f:
                 f.write(line)
@@ -38,11 +44,6 @@ class File:
 
     def __del__(self):
         self.f.close()
-
-    def write(self, line):
-        f_tmp = open(self.path, 'a')
-        f_tmp.write(line)
-        f_tmp.close()
 
 
 if __name__ == '__main__':
