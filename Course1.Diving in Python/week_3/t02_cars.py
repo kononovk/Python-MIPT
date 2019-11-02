@@ -65,7 +65,7 @@ def get_car_list(csv_filename):
         reader = csv.reader(csv_fd, delimiter=';')
         next(reader)  # пропускаем заголовок
         for row in reader:
-            if (len(row) < 7):
+            if len(row) < 7:
                 continue
             if row[0] == 'car':
                 car = Car(row[1], int(row[2]), row[3], float(row[5]))

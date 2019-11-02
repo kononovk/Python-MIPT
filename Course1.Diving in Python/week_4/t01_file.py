@@ -29,7 +29,6 @@ class File:
         line = self.f.readline()
         if line:
             return line
-            return True
         else:
             raise StopIteration
 
