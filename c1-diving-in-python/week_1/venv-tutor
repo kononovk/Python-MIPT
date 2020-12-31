@@ -1,0 +1,4 @@
+python -m venv env      # создание виртуального окружения
+source env/bin/activate # активирование виртуального окружения
+deactivate              # деактивирование
+pip install jupyter

@@ -5,8 +5,10 @@ import argparse
 
 storage_path = os.path.join(tempfile.gettempdir(), 'storage.data')
 
+
 def clear():
     os.remove(storage_path)
+
 
 def get_data():
     if not os.path.exists(storage_path):
@@ -18,6 +20,7 @@ def get_data():
             return json.loads(raw_data)
         return {}
 
+
 def put(key, value):
     data = get_data()
     if key in data:
@@ -27,6 +30,7 @@ def put(key, value):
 
     with open(storage_path, 'w') as f:
         f.write(json.dumps(data))
+
 
 def get(key):
     data = get_data()
@@ -46,9 +50,9 @@ if __name__ == '__main__':
     elif args.key and args.val:
         put(args.key, args.val)
     elif args.key:
-        if (get(args.key) is None ):
+        if get(args.key) is None:
             print(get(args.key))
-        elif (len(get(args.key)) >= 1):
+        elif len(get(args.key)) >= 1:
             print(', '.join(get(args.key)))
     else:
         print("wrong format!!!")

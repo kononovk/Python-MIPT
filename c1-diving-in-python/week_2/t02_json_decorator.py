@@ -7,12 +7,13 @@ def to_json(func):
     def wraped(*args, **kwargs):
         result = func(*args, **kwargs)
         return json.dumps(result)
+
     return wraped
 
 
 @to_json
 def get_data1():
-    return { 'data': 42, 'data2' : 3, 'data3' : 42 }
+    return {'data': 42, 'data2': 3, 'data3': 42}
 
 
 @to_json
@@ -22,7 +23,7 @@ def get_data2():
 
 @to_json
 def get_data3(a, b):
-    return (a, b)
+    return a, b
 
 
 if __name__ == '__main__':
