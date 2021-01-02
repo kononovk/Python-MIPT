@@ -9,7 +9,7 @@ except requests.Timeout:
 except requests.HTTPError as err:
     code = err.response.status_code
     print("ошибка url: {0}, code: {1}".format(url, code))
-except request.RequestException:
+except requests.RequestException:
     print("ошибка скачивания url:", url)
 else:
     print(response.content)

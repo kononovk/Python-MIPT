@@ -1,0 +1,14 @@
+functools:
+    partial  # like std::bind
+    reduce
+    wraps
+
+pprint:
+    pprint
+
+zip
+
+filter
+map
+join
+lambda

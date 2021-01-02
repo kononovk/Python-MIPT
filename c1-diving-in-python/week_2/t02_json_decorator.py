@@ -4,11 +4,11 @@ import json
 
 def to_json(func):
     @functools.wraps(func)
-    def wraped(*args, **kwargs):
+    def wrapped(*args, **kwargs):
         result = func(*args, **kwargs)
         return json.dumps(result)
 
-    return wraped
+    return wrapped
 
 
 @to_json
@@ -27,8 +27,7 @@ def get_data3(a, b):
 
 
 if __name__ == '__main__':
+    # get_data -> to_json(get_data())
     print(get_data1())
     print(get_data2())
     print(get_data3(1, 2))
-
-# get_data -> to_json(get_data())
