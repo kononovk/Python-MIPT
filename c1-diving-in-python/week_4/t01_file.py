@@ -4,20 +4,31 @@
 """
 import os
 import tempfile
+import uuid
 
 
 class File:
+    """Интерфейс для работы с файлами."""
+
     def __init__(self, path):
         self.path = path
-        self.f = open(path, 'r+')
-
-    def write(self, line):
-        with open(self.path, 'a') as f:
-            return f.write(line)
+        self.current_position = 0
+        if not os.path.exists(path):
+            open(self.path, 'w').close()
 
     def read(self):
         with open(self.path, 'r') as f:
             return f.read()
+
+    def write(self, to_write):
+        with open(self.path, 'w') as f:
+            return f.write(to_write)
+
+    def __add__(self, other):
+        new_path = os.path.join(tempfile.gettempdir(), str(uuid.uuid4().hex))
+        new_file = File(new_path)
+        new_file.write(self.read() + other.read())
+        return new_file
 
     def __str__(self):
         return self.path
@@ -26,23 +37,14 @@ class File:
         return self
 
     def __next__(self):
-        line = self.f.readline()
-        if line:
-            return line
-        else:
-            raise StopIteration
-
-    def __add__(self, other):
-        tmp_path = os.path.join(tempfile.gettempdir(), 'new_file.txt')
-        with open(tmp_path, 'w') as f:
-            for line in self.f:
-                f.write(line)
-            for line in other.f:
-                f.write(line)
-        return File(tmp_path)
-
-    def __del__(self):
-        self.f.close()
+        with open(self.path, 'r') as f:
+            f.seek(self.current_position)
+            res = f.readline()
+            if not res:
+                self.current_position = 0
+                raise StopIteration('EOF')
+            self.current_position += len(res)
+            return res
 
 
 if __name__ == '__main__':

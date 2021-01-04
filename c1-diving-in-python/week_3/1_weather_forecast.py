@@ -5,14 +5,15 @@ from dateutil.parser import parse
 
 
 class YahooWeatherForecast:
-
     def __init__(self):
         self._city_cache = {}
 
     def get(self, city):
         if city in self._cached_data:
-             return self._cached_data[city]
-        url = f"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22{city}%22)%20and%20u%3D%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+            return self._cached_data[city]
+        url = f"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather."
+        "forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20"
+        "text%3D%22{city}%22)%20and%20u%3D%27c%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
 
         data = requests.get(url).json()
         forecast = []
@@ -22,7 +23,7 @@ class YahooWeatherForecast:
                 "date": parse(day_data["date"]),
                 "high_temp": int(day_data["high"])
             })
-        #self._cached_data[city] = forecast
+        # self._cached_data[city] = forecast
         return forecast
 
 

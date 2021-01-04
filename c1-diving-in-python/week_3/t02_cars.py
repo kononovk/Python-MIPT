@@ -7,8 +7,8 @@ class BaseCar:
 
     def __init__(self, brand, photo_file_name, carrying):
         self.brand = brand  # brand
-        self.photo_file_name = photo_file_name  # ex: "machine.jpg"
-        self.carrying = carrying  # gruzopodyemnost
+        self.photo_file_name = photo_file_name
+        self.carrying = carrying
 
     def get_photo_file_ext(self):
         return os.path.splitext(self.photo_file_name)[1]
@@ -34,8 +34,7 @@ class Truck(BaseCar):
             self.body_height = body_height
 
     def __str__(self):
-        return super(Truck, self).__str__(self) #+ \
-            #str(self.body_height) + 'x' + str(self.body_width) + 'x' + str(self.body_length)
+        return super(Truck, self).__str__()
 
     def get_body_volume(self):
         return self.body_height * self.body_width * self.body_length
@@ -80,7 +79,5 @@ def get_car_list(csv_filename):
 
 
 if __name__ == '__main__':
-    # print(get_car_list('coursera_week3_cars.csv'))
     machine = Truck("Nissan", "nissan.jpg", '123x123x123', 500)
     print(machine)
-

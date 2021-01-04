@@ -16,13 +16,14 @@ class CarBase:
     ix_extra = 6
 
     def __init__(self, brand, photo_file_name, carrying):
-        self.brand = brand
         self.photo_file_name = photo_file_name
+        if not brand or self.get_photo_file_ext() not in {'.jpg', '.jpeg', '.png', '.gif'}:
+            raise ValueError
+        self.brand = brand
         self.carrying = float(carrying)
 
     def get_photo_file_ext(self):
-        _, ext = os.path.splitext(self.photo_file_name)
-        return ext
+        return os.path.splitext(self.photo_file_name)[1]
 
 
 class Car(CarBase):
@@ -54,7 +55,7 @@ class Truck(CarBase):
 
     def __init__(self, brand, photo_file_name, carrying, body_whl):
         super().__init__(brand, photo_file_name, carrying)
-        # обрабатываем поле body_whl
+
         try:
             length, width, height = (float(c) for c in body_whl.split("x", 2))
         except ValueError:
@@ -83,6 +84,8 @@ class SpecMachine(CarBase):
     car_type = "spec_machine"
 
     def __init__(self, brand, photo_file_name, carrying, extra):
+        if not extra:
+            raise ValueError
         super().__init__(brand, photo_file_name, carrying)
         self.extra = extra
 
@@ -115,26 +118,11 @@ def get_car_list(csv_filename):
         # обрабатываем csv-файл построчно
         for row in reader:
             try:
-                # определяем тип автомобиля
                 car_type = row[CarBase.ix_car_type]
-            except IndexError:
-                # если не хватает колонок в csv - игнорируем строку
-                continue
-
-            try:
-                # получаем класс, объект которого нужно создать
-                # и добавить в итоговый список car_list
                 car_class = create_strategy[car_type]
-            except KeyError:
-                # если car_type не извесен, просто игнорируем csv-строку
-                continue
-
-            try:
-                # создаем и добавляем объект в car_list
                 car_list.append(car_class.from_tuple(row))
-            except (ValueError, IndexError):
-                # если данные некорректны, то игнорируем их
-                pass
+            except (IndexError, KeyError, ValueError, IndexError):
+                continue
 
     return car_list
 
