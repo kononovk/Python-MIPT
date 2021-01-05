@@ -38,13 +38,23 @@
 
 ## Week4 Documentation
 
+#### Магические методы, дескрипторы~~~~
+
 - [Магические методы](https://docs.python.org/3/reference/datamodel.html)
 - [Статья](https://habr.com/ru/post/186608/) про магические методы
 - [Дексрипторы](https://docs.python.org/3/howto/descriptor.html)
+
+#### Отладка и тестирование
+
 - [pdb - the python debugger](https://docs.python.org/3/library/pdb.html)
 - [unittest](https://docs.python.org/3/library/unittest.html)
 - [unittest.mock](https://docs.python.org/3/library/unittest.mock.html)
 - [unittest.mock examples](https://docs.python.org/3/library/unittest.mock-examples.html)
+
+## Week5 Documentation
+
+- `sudo strace -p pid` - stacktrace of process with pid
+- `lsof -p pid` - list of opened files of process
 
 <!---
 ## Week5 Documentation
